@@ -10,7 +10,7 @@ export class IssuesService {
   private issues = new BehaviorSubject<Issue[]>(issues);
 
   getPendingIssues(): Observable<Issue[]> {
-    return this.issues.pipe(map(issue => issue.filter(issue => !issue.completed)))
+    return this.issues.pipe(map(issue => issue.filter(issue => !issue.completed)));
   }
 
   createIssue(issue: Issue): void {
