@@ -10,6 +10,4 @@ import { IssueListComponent } from './issues/issue-list/issue-list.component';
     styleUrls: ['./app.component.css'],
     imports: [CommonModule, RouterOutlet, IssueListComponent]
 })
-export class AppComponent {
-  title = 'issue-tracker';
-}
+export class AppComponent {}

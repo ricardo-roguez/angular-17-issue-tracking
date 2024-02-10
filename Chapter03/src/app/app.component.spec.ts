@@ -14,16 +14,11 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'issue-tracker' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('issue-tracker');
-  });
 
-  it('should render title', () => {
+  it('should render the app issue list', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, issue-tracker');
+    expect(compiled.querySelector('app-issue-list')).toBeTruthy();
   });
 });
