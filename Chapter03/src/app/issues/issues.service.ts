@@ -20,12 +20,12 @@ export class IssuesService {
   }
 
   completeIssue(issue: Issue): void {
-    const issuesList = this.issues$.getValue();
+    const issuesList = [...this.issues$.getValue()];
     const selectedIssuse: Issue = {
       ...issue,
       completed: new Date()
     };
-    const index = issuesList.findIndex(i => i === issue);
+    const index = issuesList.findIndex(i => i.issueNo === issue.issueNo);
     issuesList[index] = selectedIssuse;
     this.issues$.next([...issuesList]);
   }
