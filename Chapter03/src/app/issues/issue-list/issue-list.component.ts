@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IssuesService } from '../issues.service';
-import { Issue } from '../issue';
 import { ClarityModule } from '@clr/angular';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-issue-list',
@@ -12,5 +12,6 @@ import { ClarityModule } from '@clr/angular';
 })
 export class IssueListComponent {
   private issueService = inject(IssuesService);
-  issues = signal<Issue[]>(this.issueService.getPendingIssues());
+  private issues$ = this.issueService.getPendingIssues();
+  issues = toSignal(this.issues$, { requireSync: true });
 }
