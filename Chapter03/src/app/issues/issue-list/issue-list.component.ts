@@ -17,15 +17,15 @@ export class IssueListComponent {
   private issueService = inject(IssuesService);
   private issues$ = this.issueService.getPendingIssues();
   issues = toSignal(this.issues$, { requireSync: true });
-  showReportIssue = false;
+  showReportIssue = signal(false);
   selectedIssue = signal<Issue>({} as Issue);
 
   onCloseReport(): void {
-    this.showReportIssue = false;
+    this.showReportIssue.set(false);
   }
 
   openReport(): void {
-    this.showReportIssue = true;
+    this.showReportIssue.set(true);
   }
 
   onConfirm(confirmed: boolean): void {
