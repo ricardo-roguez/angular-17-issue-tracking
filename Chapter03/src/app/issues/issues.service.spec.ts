@@ -52,7 +52,7 @@ describe('IssuesService', () => {
 
   describe('getSuggestions', () => {
     it('should return an empty array of issues when title contains less than 3 ', () => {
-      service.getSuggestions('aa')
+      service.getSuggestions('cus')
         .subscribe(suggestions => expect(suggestions).toEqual([]));
     });
 
