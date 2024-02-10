@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { IssuesService } from '../issues.service';
-import { ClarityModule } from '@clr/angular';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ClarityModule } from '@clr/angular';
+
+import { IssuesService } from '../issues.service';
 
 @Component({
   selector: 'app-issue-list',

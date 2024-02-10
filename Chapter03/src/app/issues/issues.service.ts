@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Issue } from './issue';
 import { issues } from '../../assets/mock-issues';
-import { BehaviorSubject, Observable, filter, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +16,6 @@ export class IssuesService {
   createIssue(issue: Issue): void {
     const issuesList = this.issues.getValue();
     issue.issueNo = issuesList.length + 1;
-
     this.issues.next([...issuesList, issue]);
   }
 }
