@@ -13,6 +13,9 @@
       <clr-dg-column [clrDgField]="'description'">Description</clr-dg-column>
       <clr-dg-column [clrDgField]="'priority'">Priority</clr-dg-column>
       <clr-dg-row *clrDgItems="let issue of issues()">
+        <clr-dg-action-overflow>
+          <button class="action-item" (click)="selectIssue(issue)">Resolve</button>
+        </clr-dg-action-overflow>
         <clr-dg-cell>{{issue.issueNo}}</clr-dg-cell>
         <clr-dg-cell>{{issue.type}}</clr-dg-cell>
         <clr-dg-cell>{{issue.title}}</clr-dg-cell>
@@ -28,4 +31,9 @@
   </clr-datagrid>
 } @else {
   <app-issue-report (formClose)="onCloseReport()" />
+}
+
+@if (selectedIssue().issueNo >= 0) {
+    <app-confirm-dialog [issueNo]="selectedIssue().issueNo"
+                        (confirm)="onConfirm($event)" />
 }

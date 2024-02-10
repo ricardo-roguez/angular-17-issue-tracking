@@ -18,4 +18,15 @@ export class IssuesService {
     issue.issueNo = issuesList.length + 1;
     this.issues.next([...issuesList, issue]);
   }
+
+  completeIssue(issue: Issue): void {
+    const issuesList = this.issues.getValue();
+    const selectedIssuse: Issue = {
+      ...issue,
+      completed: new Date()
+    };
+    const index = issuesList.findIndex(i => i === issue);
+    issuesList[index] = selectedIssuse;
+    this.issues.next([...issuesList]);
+  }
 }
