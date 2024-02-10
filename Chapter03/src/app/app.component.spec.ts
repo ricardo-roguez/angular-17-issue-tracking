@@ -14,7 +14,6 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-
   it('should render the app issue list', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
