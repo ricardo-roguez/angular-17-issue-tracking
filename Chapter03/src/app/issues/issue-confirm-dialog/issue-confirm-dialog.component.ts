@@ -6,7 +6,6 @@ import { ClarityModule } from '@clr/angular';
   standalone: true,
   imports: [ClarityModule],
   templateUrl: './issue-confirm-dialog.component.html',
-  styleUrl: './issue-confirm-dialog.component.css',
 })
 export class IssueConfirmDialogComponent {
   @Output() confirm = new EventEmitter<boolean>();

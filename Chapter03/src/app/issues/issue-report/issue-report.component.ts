@@ -1,8 +1,23 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  DestroyRef,
+  EventEmitter,
+  OnInit,
+  Output,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { IssuesService } from '../issues.service';
 import { Issue } from '../issue';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
 
 interface IssueForm {
   title: FormControl<string>;
@@ -18,10 +33,13 @@ interface IssueForm {
   templateUrl: './issue-report.component.html',
   styleUrl: './issue-report.component.css',
 })
-export class IssueReportComponent {
+export class IssueReportComponent implements OnInit {
   @Output() formClose = new EventEmitter();
 
   private issueService = inject(IssuesService);
+  private destroyRef = inject(DestroyRef);
+
+  suggestions = signal<Issue[]>([]);
 
   issueForm = new FormGroup<IssueForm>({
     title: new FormControl('', {
@@ -38,6 +56,15 @@ export class IssueReportComponent {
       validators: Validators.required,
     }),
   });
+
+  ngOnInit(): void {
+    this.issueForm.controls.title.valueChanges
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        switchMap((title) => this.issueService.getSuggestions(title))
+      )
+      .subscribe((issues: Issue[]) => this.suggestions.set(issues));
+  }
 
   addIssue(): void {
     if (this.issueForm?.invalid) {

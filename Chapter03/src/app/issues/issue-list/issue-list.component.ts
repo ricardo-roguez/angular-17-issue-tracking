@@ -11,7 +11,6 @@ import { IssueConfirmDialogComponent } from '../issue-confirm-dialog/issue-confi
   selector: 'app-issue-list',
   standalone: true,
   templateUrl: './issue-list.component.html',
-  styleUrl: './issue-list.component.css',
   imports: [ClarityModule, IssueReportComponent, IssueConfirmDialogComponent],
 })
 export class IssueListComponent {
