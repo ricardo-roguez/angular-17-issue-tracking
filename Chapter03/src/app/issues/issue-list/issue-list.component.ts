@@ -5,14 +5,14 @@ import { ClarityModule } from '@clr/angular';
 import { IssuesService } from '../issues.service';
 import { IssueReportComponent } from '../issue-report/issue-report.component';
 import { Issue } from '../issue';
-import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { IssueConfirmDialogComponent } from '../issue-confirm-dialog/issue-confirm-dialog.component';
 
 @Component({
   selector: 'app-issue-list',
   standalone: true,
   templateUrl: './issue-list.component.html',
   styleUrl: './issue-list.component.css',
-  imports: [ClarityModule, IssueReportComponent, ConfirmDialogComponent],
+  imports: [ClarityModule, IssueReportComponent, IssueConfirmDialogComponent],
 })
 export class IssueListComponent {
   private issueService = inject(IssuesService);

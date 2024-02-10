@@ -34,6 +34,6 @@
 }
 
 @if (selectedIssue().issueNo >= 0) {
-    <app-confirm-dialog [issueNo]="selectedIssue().issueNo"
-                        (confirm)="onConfirm($event)" />
+    <app-issue-confirm-dialog [issueNo]="selectedIssue().issueNo"
+                              (confirm)="onConfirm($event)" />
 }

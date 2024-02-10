@@ -2,13 +2,13 @@ import { Component, EventEmitter, Output, input, signal } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
 
 @Component({
-  selector: 'app-confirm-dialog',
+  selector: 'app-issue-confirm-dialog',
   standalone: true,
   imports: [ClarityModule],
-  templateUrl: './confirm-dialog.component.html',
-  styleUrl: './confirm-dialog.component.css',
+  templateUrl: './issue-confirm-dialog.component.html',
+  styleUrl: './issue-confirm-dialog.component.css',
 })
-export class ConfirmDialogComponent {
+export class IssueConfirmDialogComponent {
   @Output() confirm = new EventEmitter<boolean>();
   issueNo = input.required<number>();
 
