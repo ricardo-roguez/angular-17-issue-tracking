@@ -1,15 +1,21 @@
 import { TestBed } from '@angular/core/testing';
-
+import { HttpClient } from '@angular/common/http';
 import { IssuesService } from './issues.service';
 import { issues } from '../../assets/mock-issues';
 import { Issue } from './issue';
+import { of } from 'rxjs';
 
 describe('IssuesService', () => {
   let service: IssuesService;
+  const httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [{provide: HttpClient, useValue: httpClientSpy}]
+    });
     service = TestBed.inject(IssuesService);
+    httpClientSpy.get.and.returnValue(of(issues));
+    service.getPendingIssuesFromApi().subscribe();
   });
 
   it('should be created', () => {
@@ -18,7 +24,7 @@ describe('IssuesService', () => {
 
   it('should return the pending issues when getPendingIssues is called', () => {
     const expectedIssues = issues;
-    service.getPendingIssues().subscribe((pendingIssues) => {
+    service.getPendingIssuesFromApi().subscribe((pendingIssues) => {
       expect(pendingIssues).toEqual(expectedIssues);
     });
   });
@@ -34,7 +40,7 @@ describe('IssuesService', () => {
     const expectedIssues = [...issues, newIssue];
 
     service.createIssue(newIssue);
-    service.getPendingIssues().subscribe((pendingIssues) => {
+    service.getPendingIssuesData().subscribe((pendingIssues) => {
       expect(pendingIssues).toEqual(expectedIssues);
     });
   });
@@ -44,7 +50,7 @@ describe('IssuesService', () => {
 
     service.completeIssue(issueToComplete);
     service
-      .getPendingIssues()
+      .getPendingIssuesData()
       .subscribe((issues) =>
         expect(issues.findIndex((i) => i.issueNo === issueToComplete.issueNo)).toBe(-1)
       );
@@ -61,7 +67,7 @@ describe('IssuesService', () => {
         .subscribe(suggestions => expect(suggestions).toEqual([]));
     });
 
-    it('should return an empty array of issues when suggestions was not found ', () => {
+    it('should return an array of issues when suggestions was found ', () => {
       const expectedArray: Issue[] = [issues[1], issues[4]]
       service.getSuggestions('cust')
         .subscribe(suggestions => expect(suggestions).toEqual(expectedArray));

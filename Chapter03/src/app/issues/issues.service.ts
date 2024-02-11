@@ -1,43 +1,48 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, of } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, map, of, switchMap, tap } from 'rxjs';
 import { Issue } from './issue';
-import { issues } from '../../assets/mock-issues';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IssuesService {
-  private issues$ = new BehaviorSubject<Issue[]>(issues);
+  private httpClient = inject(HttpClient);
+  private pendingIssues$ = new BehaviorSubject<Issue[]>([]);
 
-  getPendingIssues(): Observable<Issue[]> {
-    return this.issues$.pipe(map(issue => issue.filter(issue => !issue.completed)));
+  getPendingIssuesData(): BehaviorSubject<Issue[]> {
+    return this.pendingIssues$;
+  }
+
+  getPendingIssuesFromApi(): Observable<Issue[]> {
+    return this.httpClient.get<Issue[]>('./assets/mock-issues.json').pipe(
+      map((issues: Issue[]) => issues.filter((issue) => !issue.completed)),
+      tap((data) => this.pendingIssues$.next(data)),
+      switchMap(() => this.pendingIssues$)
+    );
   }
 
   createIssue(issue: Issue): void {
-    const issuesList = this.issues$.getValue();
+    const issuesList = this.pendingIssues$.getValue();
     issue.issueNo = issuesList.length + 1;
-    this.issues$.next([...issuesList, issue]);
+    this.pendingIssues$.next([...issuesList, issue]);
   }
 
   completeIssue(issue: Issue): void {
-    const issuesList = [...this.issues$.getValue()];
-    const selectedIssuse: Issue = {
-      ...issue,
-      completed: new Date()
-    };
-    const index = issuesList.findIndex(i => i.issueNo === issue.issueNo);
-    issuesList[index] = selectedIssuse;
-    this.issues$.next([...issuesList]);
+    const issuesList = [...this.pendingIssues$.getValue()];
+    const index = issuesList.findIndex((i) => i.issueNo === issue.issueNo);
+    issuesList.splice(index, 1);
+    this.pendingIssues$.next([...issuesList]);
   }
 
   getSuggestions(title: string): Observable<Issue[]> {
     if (title.length <= 3) {
-       return of([]);
+      return of([]);
     }
 
-    return this.issues$.pipe(
+    return this.pendingIssues$.pipe(
       map((issues: Issue[]) =>
-        issues.filter(issue => this.containsTitle(issue, title))
+        issues.filter((issue) => this.containsTitle(issue, title))
       )
     );
   }

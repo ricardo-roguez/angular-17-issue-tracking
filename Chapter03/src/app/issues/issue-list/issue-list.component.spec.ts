@@ -18,7 +18,7 @@ describe('IssueListComponent', () => {
 
   beforeEach(async () => {
       const spy = jasmine.createSpyObj('IssuesService', [
-        'getPendingIssues',
+        'getPendingIssuesFromApi',
         'completeIssue',
       ]);
 
@@ -29,7 +29,7 @@ describe('IssueListComponent', () => {
 
 
     issueServiceSpy = TestBed.inject(IssuesService) as jasmine.SpyObj<IssuesService>;
-    issueServiceSpy.getPendingIssues.and.returnValue(of(pendingIssuesMock));
+    issueServiceSpy.getPendingIssuesFromApi.and.returnValue(of(pendingIssuesMock));
 
     fixture = TestBed.createComponent(IssueListComponent);
     component = fixture.componentInstance;
@@ -42,7 +42,7 @@ describe('IssueListComponent', () => {
   });
 
   it('should store the issuesList into issues property', () => {
-    expect(component.issues()).toBe(pendingIssuesMock);
+    expect(component.issueList()).toBe(pendingIssuesMock);
   });
 
   describe('when showReportIssue is false', () => {

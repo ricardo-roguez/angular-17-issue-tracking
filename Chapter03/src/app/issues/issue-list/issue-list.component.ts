@@ -15,8 +15,8 @@ import { IssueConfirmDialogComponent } from '../issue-confirm-dialog/issue-confi
 })
 export class IssueListComponent {
   private issueService = inject(IssuesService);
-  private issues$ = this.issueService.getPendingIssues();
-  issues = toSignal(this.issues$, { requireSync: true });
+  issueList = toSignal(this.issueService.getPendingIssuesFromApi(), {initialValue: []});
+
   showReportIssue = signal(false);
   selectedIssue = signal<Issue>({} as Issue);
 
