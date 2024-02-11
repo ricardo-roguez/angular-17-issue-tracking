@@ -1,4 +1,4 @@
-import { Component, input, effect, inject } from '@angular/core';
+import { Component, input, effect, inject, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { IssueForm } from '../issue-form';
@@ -13,6 +13,8 @@ import { IssuesService } from '../issues.service';
   styleUrl: './issue-edit.component.css',
 })
 export class IssueEditComponent {
+  @Output() formClose = new EventEmitter();
+
   private issueService = inject(IssuesService);
 
   issue = input.required<Issue>();
@@ -24,8 +26,8 @@ export class IssueEditComponent {
 
   saveIssue(): void {
     const issueToSave: Issue = {
-      ...this.issueForm.getRawValue() as Issue,
-      issueNo: this.issue().issueNo
+      ...(this.issueForm.getRawValue() as Issue),
+      issueNo: this.issue().issueNo,
     };
 
     this.issueService.updateIssue(issueToSave);

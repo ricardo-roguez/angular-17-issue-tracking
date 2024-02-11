@@ -34,6 +34,7 @@ fdescribe('IssueEditComponent', () => {
     component = fixture.componentInstance;
     compiled = fixture.nativeElement as HTMLElement;
     fixture.componentRef.setInput('issue', mockedIssue);
+    spyOn(component.formClose, 'emit');
     fixture.detectChanges();
   });
 
@@ -113,7 +114,7 @@ fdescribe('IssueEditComponent', () => {
     });
   });
 
-  it('should call to IssueService when user update the issue', () => {
+  it('should call to IssueService when user update the issue and close the form', () => {
     const expectedIssue: Issue = {
       title: 'new Title',
       description: 'new Description',
@@ -129,5 +130,6 @@ fdescribe('IssueEditComponent', () => {
       issueNo: mockedIssue.issueNo
     });
 
+    expect(component.formClose.emit).toHaveBeenCalled();
   });
 });
