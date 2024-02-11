@@ -136,10 +136,15 @@ fdescribe('IssueListComponent', () => {
     expect(component.selectedIssue()).toEqual(issues[1]);
   });
 
-  it('should allow the user to select an issue to update and display the form', () => {
+  it('should allow the user to select an issue to update and display the issue edit form', () => {
     const issueToUpdate = { ...issues[2] };
     component.selectIssueToUpdate(issueToUpdate);
     expect(component.issueToEdit()).toEqual(issueToUpdate);
     expect(component.showEditIssue()).toBeTrue();
-  })
+  });
+
+  it('should close the issue edit form when onCloseEdit is called', () => {
+    component.onCloseEdit();
+    expect(component.showEditIssue()).toBeFalse();
+  });
 });
