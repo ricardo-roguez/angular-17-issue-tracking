@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ClarityModule } from '@clr/angular';
 
@@ -49,12 +49,12 @@ export class IssueListComponent {
     this.selectedIssue.set(issue);
   }
 
-  selectIssueToUpdate(issueToEdit: Issue) {
+  selectIssueToUpdate(issueToEdit: Issue): void {
     this.issueToEdit.set(issueToEdit);
     this.showEditIssue.set(true);
   }
 
-  onCloseEdit() {
-    throw new Error('Method not implemented.');
+  onCloseEdit(): void {
+    this.showEditIssue.set(false);
   }
 }
