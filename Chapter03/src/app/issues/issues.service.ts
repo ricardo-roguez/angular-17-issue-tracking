@@ -47,6 +47,10 @@ export class IssuesService {
     );
   }
 
+  updateIssue(issue: Issue): void {
+    throw new Error('Method not implemented.');
+  }
+
   private containsTitle(issue: Issue, title: string): boolean {
     return issue.title.toLowerCase().indexOf(title.toLowerCase()) !== -1;
   }

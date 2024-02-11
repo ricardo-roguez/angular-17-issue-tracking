@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IssueEditComponent } from './issue-edit.component';
 import { Issue } from '../issue';
+import { IssuesService } from '../issues.service';
 
 const mockedIssue: Issue = {
   title: 'Issue To edit',
@@ -17,11 +18,17 @@ fdescribe('IssueEditComponent', () => {
   let component: IssueEditComponent;
   let fixture: ComponentFixture<IssueEditComponent>;
   let compiled: HTMLElement;
+  let issueServiceSpy: jasmine.SpyObj<IssuesService>;
 
   beforeEach(async () => {
+    const spy = jasmine.createSpyObj('IssuesService', ['updateIssue']);
+
     await TestBed.configureTestingModule({
       imports: [IssueEditComponent, BrowserAnimationsModule],
+      providers: [{ provide: IssuesService, useValue: spy }],
     }).compileComponents();
+
+    issueServiceSpy = TestBed.inject(IssuesService) as jasmine.SpyObj<IssuesService>;
 
     fixture = TestBed.createComponent(IssueEditComponent);
     component = fixture.componentInstance;
@@ -104,5 +111,23 @@ fdescribe('IssueEditComponent', () => {
         compiled.querySelector('button[type="button"]')?.textContent
       ).toBe('Cancel');
     });
+  });
+
+  it('should call to IssueService when user update the issue', () => {
+    const expectedIssue: Issue = {
+      title: 'new Title',
+      description: 'new Description',
+      type: 'Bug',
+      priority: 'low',
+      issueNo: -1
+    };
+
+    component.issueForm.patchValue(expectedIssue);
+    component.saveIssue();
+    expect(issueServiceSpy.updateIssue).toHaveBeenCalledWith({
+      ...expectedIssue,
+      issueNo: mockedIssue.issueNo
+    });
+
   });
 });

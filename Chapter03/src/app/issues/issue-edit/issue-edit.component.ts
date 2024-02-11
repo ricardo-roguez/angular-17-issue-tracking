@@ -12,6 +12,9 @@ import { Issue } from '../issue';
   styleUrl: './issue-edit.component.css',
 })
 export class IssueEditComponent {
+  saveIssue() {
+    throw new Error('Method not implemented.');
+  }
   issue = input.required<Issue>();
   issueForm!: FormGroup<IssueForm>;
 
