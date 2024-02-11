@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Validators } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IssueEditComponent } from './issue-edit.component';
 import { Issue } from '../issue';
-import { Validators } from '@angular/forms';
 
 const mockedIssue: Issue = {
   title: 'Issue To edit',
@@ -10,7 +11,8 @@ const mockedIssue: Issue = {
   issueNo: 99,
   priority: 'high',
   type: 'Documentation'
-}
+};
+
 fdescribe('IssueEditComponent', () => {
   let component: IssueEditComponent;
   let fixture: ComponentFixture<IssueEditComponent>;
@@ -18,14 +20,13 @@ fdescribe('IssueEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IssueEditComponent]
-    })
-    .compileComponents();
+      imports: [IssueEditComponent, BrowserAnimationsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(IssueEditComponent);
-    fixture.componentRef.setInput('issue', mockedIssue);
     component = fixture.componentInstance;
     compiled = fixture.nativeElement as HTMLElement;
+    fixture.componentRef.setInput('issue', mockedIssue);
     fixture.detectChanges();
   });
 
@@ -63,7 +64,12 @@ fdescribe('IssueEditComponent', () => {
   });
 
   describe('should constains a form in the html with', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
     it('the form tag', () => {
+      fixture.detectChanges();
       expect(compiled.querySelector('form')).toBeTruthy();
     });
 
@@ -96,7 +102,7 @@ fdescribe('IssueEditComponent', () => {
     it('the cancel button', () => {
       expect(
         compiled.querySelector('button[type="button"]')?.textContent
-      ).toBe(' Cancel ');
+      ).toBe('Cancel');
     });
   });
 });
