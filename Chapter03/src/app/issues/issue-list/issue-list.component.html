@@ -1,4 +1,4 @@
-@if (showReportIssue() === false) {
+@if (showReportIssue() === false && showEditIssue() === false) {
   <button class="btn btn-primary"
           (click)="openReport()">
     Add new issue
@@ -30,8 +30,14 @@
       </clr-dg-row>
       <clr-dg-footer>{{issueList().length}} issues</clr-dg-footer>
   </clr-datagrid>
-} @else {
+}
+
+@if(showReportIssue()) {
   <app-issue-report (formClose)="onCloseReport()" />
+}
+
+@if (showEditIssue()) {
+  <app-issue-edit [issue]="issueToEdit()" (formClose)="onCloseEdit()" />
 }
 
 @if (selectedIssue().issueNo >= 0) {

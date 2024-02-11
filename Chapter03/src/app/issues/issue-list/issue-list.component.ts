@@ -21,7 +21,9 @@ import { IssueEditComponent } from "../issue-edit/issue-edit.component";
 })
 export class IssueListComponent {
   private issueService = inject(IssuesService);
-  issueList = toSignal(this.issueService.getPendingIssuesFromApi(), { initialValue: [] });
+  issueList = toSignal(this.issueService.getPendingIssuesFromApi(), {
+    initialValue: [],
+  });
 
   showReportIssue = signal(false);
   showEditIssue = signal(false);
@@ -49,5 +51,10 @@ export class IssueListComponent {
 
   selectIssueToUpdate(issueToEdit: Issue) {
     this.issueToEdit.set(issueToEdit);
+    this.showEditIssue.set(true);
+  }
+
+  onCloseEdit() {
+    throw new Error('Method not implemented.');
   }
 }
