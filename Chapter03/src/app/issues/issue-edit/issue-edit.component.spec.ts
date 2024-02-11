@@ -14,7 +14,7 @@ const mockedIssue: Issue = {
   type: 'Documentation'
 };
 
-fdescribe('IssueEditComponent', () => {
+describe('IssueEditComponent', () => {
   let component: IssueEditComponent;
   let fixture: ComponentFixture<IssueEditComponent>;
   let compiled: HTMLElement;

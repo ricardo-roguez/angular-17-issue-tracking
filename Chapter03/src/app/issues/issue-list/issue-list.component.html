@@ -15,6 +15,7 @@
       <clr-dg-row *clrDgItems="let issue of issueList()">
         <clr-dg-action-overflow>
           <button class="action-item" (click)="selectIssue(issue)">Resolve</button>
+          <button class="action-item" (click)="selectIssueToUpdate(issue)">Update Issue</button>
         </clr-dg-action-overflow>
         <clr-dg-cell>{{issue.issueNo}}</clr-dg-cell>
         <clr-dg-cell>{{issue.type}}</clr-dg-cell>

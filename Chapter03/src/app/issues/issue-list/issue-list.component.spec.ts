@@ -10,17 +10,17 @@ import { Issue } from '../issue';
 
 const pendingIssuesMock = issues.filter(issue => !issue.completed);
 
-describe('IssueListComponent', () => {
+fdescribe('IssueListComponent', () => {
   let component: IssueListComponent;
   let fixture: ComponentFixture<IssueListComponent>;
   let issueServiceSpy: jasmine.SpyObj<IssuesService>;
   let compiled: HTMLElement;
 
   beforeEach(async () => {
-      const spy = jasmine.createSpyObj('IssuesService', [
-        'getPendingIssuesFromApi',
-        'completeIssue',
-      ]);
+    const spy = jasmine.createSpyObj('IssuesService', [
+      'getPendingIssuesFromApi',
+      'completeIssue',
+    ]);
 
     await TestBed.configureTestingModule({
       imports: [IssueListComponent, BrowserAnimationsModule],
@@ -116,4 +116,10 @@ describe('IssueListComponent', () => {
     component.selectIssue(issues[1]);
     expect(component.selectedIssue()).toEqual(issues[1]);
   });
+
+  it('should allow the user to select an issue to update', () => {
+    const issueToUpdate = { ...issues[2] };
+    component.selectIssueToUpdate(issueToUpdate);
+    expect(component.issueToEdit()).toEqual(issueToUpdate);
+  })
 });
