@@ -45,18 +45,23 @@ fdescribe('IssueListComponent', () => {
     expect(component.issueList()).toBe(pendingIssuesMock);
   });
 
-  describe('when showReportIssue is false', () => {
+  describe('when showReportIssue and showEditIssue are false', () => {
     beforeEach(() => {
       component.showReportIssue.set(false);
+      component.showEditIssue.set(false);
       fixture.detectChanges();
-    })
+    });
 
-     it('should render the datagrid', () => {
-       expect(compiled.querySelector('clr-datagrid')).toBeTruthy();
-     });
+    it('should render the datagrid', () => {
+      expect(compiled.querySelector('clr-datagrid')).toBeTruthy();
+    });
 
     it('should hide the app-issue-report ', () => {
-      expect(compiled.querySelector('app-issue-report ')).toBeFalsy();
+      expect(compiled.querySelector('app-issue-report')).toBeFalsy();
+    });
+
+    it('should hide the app-issue-edit ', () => {
+      expect(compiled.querySelector('app-issue-edit')).toBeFalsy();
     });
   });
 
@@ -72,6 +77,20 @@ fdescribe('IssueListComponent', () => {
       it('should render the app-issue-report ', () => {
         expect(compiled.querySelector('app-issue-report ')).toBeTruthy();
       });
+  });
+
+  describe('when showEditIssue is true', () => {
+    beforeEach(() => {
+      component.showEditIssue.set(true);
+      fixture.detectChanges();
+    });
+
+    it('should hide the datagrid', () => {
+      expect(compiled.querySelector('clr-datagrid')).toBeFalsy();
+    });
+    it('should render the app-issue-edit ', () => {
+      expect(compiled.querySelector('app-issue-edit')).toBeTruthy();
+    });
   });
 
   it('should display the modal when user select an issue and set the issueId', () => {

@@ -24,6 +24,7 @@ export class IssueListComponent {
   issueList = toSignal(this.issueService.getPendingIssuesFromApi(), { initialValue: [] });
 
   showReportIssue = signal(false);
+  showEditIssue = signal(false);
   selectedIssue = signal<Issue>({} as Issue);
   issueToEdit = signal<Issue>({} as Issue);
 
@@ -47,6 +48,6 @@ export class IssueListComponent {
   }
 
   selectIssueToUpdate(issueToEdit: Issue) {
-    throw new Error('Method not implemented.');
+    this.issueToEdit.set(issueToEdit);
   }
 }
