@@ -61,4 +61,42 @@ fdescribe('IssueEditComponent', () => {
       expect(typeControl.value).toBe(mockedIssue.type);
     });
   });
+
+  describe('should constains a form in the html with', () => {
+    it('the form tag', () => {
+      expect(compiled.querySelector('form')).toBeTruthy();
+    });
+
+    it('the title control', () => {
+      expect(
+        compiled.querySelector('[formControlName="title"]')
+      ).toBeTruthy();
+    });
+
+    it('the description control', () => {
+      expect(
+        compiled.querySelector('[formControlName="description"]')
+      ).toBeTruthy();
+    });
+
+    it('the priority control', () => {
+      expect(
+        compiled.querySelector('[formControlName="priority"]')
+      ).toBeTruthy();
+    });
+
+    it('the type control', () => {
+      expect(compiled.querySelector('[formControlName="type"]')).toBeTruthy();
+    });
+
+    it('the submit button', () => {
+      expect(compiled.querySelector('button[type="submit"]')).toBeTruthy();
+    });
+
+    it('the cancel button', () => {
+      expect(
+        compiled.querySelector('button[type="button"]')?.textContent
+      ).toBe(' Cancel ');
+    });
+  });
 });
