@@ -58,7 +58,6 @@ describe('IssueReportComponent', () => {
       ).toBeTruthy();
     });
 
-
     it('should contain the priority control', () => {
       expect(
         compiled.querySelector('[formControlName="priority"]')

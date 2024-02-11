@@ -18,13 +18,7 @@ import { IssuesService } from '../issues.service';
 import { Issue } from '../issue';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
-
-interface IssueForm {
-  title: FormControl<string>;
-  description: FormControl<string>;
-  priority: FormControl<string>;
-  type: FormControl<string>;
-}
+import { IssueForm } from '../issue-form';
 
 @Component({
   selector: 'app-issue-report',
