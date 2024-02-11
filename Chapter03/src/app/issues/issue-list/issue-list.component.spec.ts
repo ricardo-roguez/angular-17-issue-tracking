@@ -10,7 +10,7 @@ import { Issue } from '../issue';
 
 const pendingIssuesMock = issues.filter(issue => !issue.completed);
 
-fdescribe('IssueListComponent', () => {
+describe('IssueListComponent', () => {
   let component: IssueListComponent;
   let fixture: ComponentFixture<IssueListComponent>;
   let issueServiceSpy: jasmine.SpyObj<IssuesService>;

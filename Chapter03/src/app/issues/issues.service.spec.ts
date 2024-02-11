@@ -5,7 +5,7 @@ import { issues } from '../../assets/mock-issues';
 import { Issue } from './issue';
 import { of } from 'rxjs';
 
-describe('IssuesService', () => {
+fdescribe('IssuesService', () => {
   let service: IssuesService;
   const httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
 
@@ -54,6 +54,21 @@ describe('IssuesService', () => {
       .subscribe((issues) =>
         expect(issues.findIndex((i) => i.issueNo === issueToComplete.issueNo)).toBe(-1)
       );
+  });
+
+  it('should update an issue', () => {
+    const expectedIssue: Issue = {
+      title: 'new Title',
+      description: 'new Description',
+      type: 'Bug',
+      priority: 'high',
+      issueNo: issues[2].issueNo,
+    }
+
+    service.updateIssue(expectedIssue);
+    service
+      .getPendingIssuesData()
+      .subscribe((issues) => expect(issues[2]).toEqual(expectedIssue));
   });
 
   describe('getSuggestions', () => {
