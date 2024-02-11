@@ -31,6 +31,11 @@ export class IssueEditComponent {
     };
 
     this.issueService.updateIssue(issueToSave);
+    this.closeForm();
+  }
+
+  closeForm(): void {
+    this.formClose.emit();
   }
 
   private buildForm(issue: Issue): void {
