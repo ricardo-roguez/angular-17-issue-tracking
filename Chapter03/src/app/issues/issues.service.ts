@@ -48,7 +48,10 @@ export class IssuesService {
   }
 
   updateIssue(issue: Issue): void {
-    throw new Error('Method not implemented.');
+    const issuesList = [...this.pendingIssues$.getValue()];
+    const index = issuesList.findIndex((i) => i.issueNo === issue.issueNo);
+    issuesList[index] = { ...issue };
+    this.pendingIssues$.next([...issuesList]);
   }
 
   private containsTitle(issue: Issue, title: string): boolean {

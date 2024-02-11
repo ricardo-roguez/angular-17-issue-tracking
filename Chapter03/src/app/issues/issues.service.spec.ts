@@ -5,7 +5,7 @@ import { issues } from '../../assets/mock-issues';
 import { Issue } from './issue';
 import { of } from 'rxjs';
 
-fdescribe('IssuesService', () => {
+describe('IssuesService', () => {
   let service: IssuesService;
   const httpClientSpy = jasmine.createSpyObj('HttpClient', ['post', 'get']);
 
