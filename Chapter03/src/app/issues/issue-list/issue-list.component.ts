@@ -4,9 +4,9 @@ import { ClarityModule } from '@clr/angular';
 
 import { IssuesService } from '../issues.service';
 import { IssueReportComponent } from '../issue-report/issue-report.component';
-import { Issue } from '../issue';
+import { Issue } from '../interfaces/issue';
 import { IssueConfirmDialogComponent } from '../issue-confirm-dialog/issue-confirm-dialog.component';
-import { IssueEditComponent } from "../issue-edit/issue-edit.component";
+import { IssueEditComponent } from '../issue-edit/issue-edit.component';
 
 @Component({
   selector: 'app-issue-list',
@@ -38,7 +38,7 @@ export class IssueListComponent {
     this.showReportIssue.set(true);
   }
 
-  onConfirm(confirmed: boolean): void {
+  onConfirmDialog(confirmed: boolean): void {
     if (confirmed && this.selectedIssue().issueNo > 0) {
       this.issueService.completeIssue(this.selectedIssue());
     }

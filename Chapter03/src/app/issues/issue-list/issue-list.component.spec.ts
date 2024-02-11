@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { IssueListComponent } from './issue-list.component';
 import { IssuesService } from '../issues.service';
 import { issues } from '../../../assets/mock-issues';
-import { Issue } from '../issue';
+import { Issue } from '../interfaces/issue';
 
 const pendingIssuesMock = issues.filter(issue => !issue.completed);
 
@@ -113,18 +113,18 @@ describe('IssueListComponent', () => {
   describe('onConfirm', () => {
     it('should not call to issue service if confirmed is false but there is an issue selected', () => {
       component.selectedIssue.set(issues[0]);
-      component.onConfirm(false);
+      component.onConfirmDialog(false);
       expect(issueServiceSpy.completeIssue).not.toHaveBeenCalled();
     });
     it('should not call to issue service if confirmed is true but there is no an issue selected', () => {
       component.selectedIssue.set({} as Issue);
-      component.onConfirm(true);
+      component.onConfirmDialog(true);
       expect(issueServiceSpy.completeIssue).not.toHaveBeenCalled();
     });
 
     it('should call to issue service when confirmed is true and there is an issue selected and clear the selectedIssue', () => {
       component.selectedIssue.set(issues[0]);
-      component.onConfirm(true);
+      component.onConfirmDialog(true);
       expect(issueServiceSpy.completeIssue).toHaveBeenCalledWith(issues[0]);
       expect(component.selectedIssue()).toEqual({} as Issue);
     });

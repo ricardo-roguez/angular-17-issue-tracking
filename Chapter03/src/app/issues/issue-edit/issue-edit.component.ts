@@ -1,8 +1,8 @@
 import { Component, input, effect, inject, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
-import { IssueForm } from '../issue-form';
-import { Issue } from '../issue';
+import { IssueForm } from '../interfaces/issue-form';
+import { Issue } from '../interfaces/issue';
 import { IssuesService } from '../issues.service';
 
 @Component({
@@ -10,7 +10,6 @@ import { IssuesService } from '../issues.service';
   standalone: true,
   imports: [ClarityModule, ReactiveFormsModule],
   templateUrl: './issue-edit.component.html',
-  styleUrl: './issue-edit.component.css',
 })
 export class IssueEditComponent {
   @Output() formClose = new EventEmitter();

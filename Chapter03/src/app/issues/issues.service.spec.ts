@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClient } from '@angular/common/http';
 import { IssuesService } from './issues.service';
 import { issues } from '../../assets/mock-issues';
-import { Issue } from './issue';
+import { Issue } from './interfaces/issue';
 import { of } from 'rxjs';
 
 describe('IssuesService', () => {

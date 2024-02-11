@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { IssueEditComponent } from './issue-edit.component';
-import { Issue } from '../issue';
+import { Issue } from '../interfaces/issue';
 import { IssuesService } from '../issues.service';
 
 const mockedIssue: Issue = {

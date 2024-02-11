@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { IssueReportComponent } from './issue-report.component';
 import { IssuesService } from '../issues.service';
 import { issues } from '../../../assets/mock-issues';
-import { Issue } from '../issue';
+import { Issue } from '../interfaces/issue';
 
 const suggestionsMock = [issues[0], issues[1]];
 

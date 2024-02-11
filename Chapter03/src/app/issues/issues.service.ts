@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, map, of, switchMap, tap } from 'rxjs';
-import { Issue } from './issue';
+import { Issue } from './interfaces/issue';
 
 @Injectable({
   providedIn: 'root',
@@ -9,16 +9,18 @@ import { Issue } from './issue';
 export class IssuesService {
   private httpClient = inject(HttpClient);
   private pendingIssues$ = new BehaviorSubject<Issue[]>([]);
+  private minLengthToSearchSuggestions = 3;
 
   getPendingIssuesData(): BehaviorSubject<Issue[]> {
     return this.pendingIssues$;
   }
 
   getPendingIssuesFromApi(): Observable<Issue[]> {
-    return this.httpClient.get<Issue[]>('./assets/mock-issues.json').pipe(
-      map((issues: Issue[]) => issues.filter((issue) => !issue.completed)),
-      tap((data) => this.pendingIssues$.next(data)),
-      switchMap(() => this.pendingIssues$)
+    return this.httpClient.get<Issue[]>('./assets/mock-issues.json')
+      .pipe(
+        map((issues: Issue[]) => issues.filter((issue) => !issue.completed)),
+        tap((data) => this.pendingIssues$.next(data)),
+        switchMap(() => this.pendingIssues$)
     );
   }
 
@@ -30,28 +32,31 @@ export class IssuesService {
 
   completeIssue(issue: Issue): void {
     const issuesList = [...this.pendingIssues$.getValue()];
-    const index = issuesList.findIndex((i) => i.issueNo === issue.issueNo);
+    const index = this.findIssueIndexByIssueNo(issuesList, issue);
     issuesList.splice(index, 1);
     this.pendingIssues$.next([...issuesList]);
   }
 
   getSuggestions(title: string): Observable<Issue[]> {
-    if (title.length <= 3) {
+    if (title.length <= this.minLengthToSearchSuggestions) {
       return of([]);
     }
 
-    return this.pendingIssues$.pipe(
-      map((issues: Issue[]) =>
-        issues.filter((issue) => this.containsTitle(issue, title))
-      )
+    return this.pendingIssues$
+      .pipe(
+        map((issues: Issue[]) => issues.filter((issue) => this.containsTitle(issue, title)))
     );
   }
 
   updateIssue(issue: Issue): void {
     const issuesList = [...this.pendingIssues$.getValue()];
-    const index = issuesList.findIndex((i) => i.issueNo === issue.issueNo);
+    const index = this.findIssueIndexByIssueNo(issuesList, issue);
     issuesList[index] = { ...issue };
     this.pendingIssues$.next([...issuesList]);
+  }
+
+  private findIssueIndexByIssueNo(issueList: Issue[], issue: Issue): number {
+    return issueList.findIndex((i) => i.issueNo === issue.issueNo);
   }
 
   private containsTitle(issue: Issue, title: string): boolean {

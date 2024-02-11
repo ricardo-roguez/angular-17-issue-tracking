@@ -15,10 +15,10 @@ import {
 } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { IssuesService } from '../issues.service';
-import { Issue } from '../issue';
+import { Issue } from '../interfaces/issue';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs';
-import { IssueForm } from '../issue-form';
+import { IssueForm } from '../interfaces/issue-form';
 
 @Component({
   selector: 'app-issue-report',
