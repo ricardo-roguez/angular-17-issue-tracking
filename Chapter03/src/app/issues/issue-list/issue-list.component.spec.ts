@@ -136,9 +136,10 @@ fdescribe('IssueListComponent', () => {
     expect(component.selectedIssue()).toEqual(issues[1]);
   });
 
-  it('should allow the user to select an issue to update', () => {
+  it('should allow the user to select an issue to update and display the form', () => {
     const issueToUpdate = { ...issues[2] };
     component.selectIssueToUpdate(issueToUpdate);
     expect(component.issueToEdit()).toEqual(issueToUpdate);
+    expect(component.showEditIssue()).toBeTrue();
   })
 });
