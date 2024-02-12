@@ -14,3 +14,7 @@ Entre estos cambios destacan los siguientes:
 * [Uso de signals para la comunicación entre el componente y la vista](https://github.com/ricardo-roguez/angular-17-issue-tracking/blob/116ddfd16b17db01c584b8d06337ff7c5ca3e419/src/app/issues/issue-list/issue-list.component.ts#L24)
 * [Uso de signal inputs](https://github.com/ricardo-roguez/angular-17-issue-tracking/blob/116ddfd16b17db01c584b8d06337ff7c5ca3e419/src/app/issues/issue-edit/issue-edit.component.ts#L19)
 * [Uso del control flow](https://github.com/ricardo-roguez/angular-17-issue-tracking/blob/116ddfd16b17db01c584b8d06337ff7c5ca3e419/src/app/issues/issue-list/issue-list.component.html#L1)
+
+### Cosas a investigar/introducir en un futuro:
+* Defer blocks
+* Cambiar el formulario reactivo para que se base en signal form
