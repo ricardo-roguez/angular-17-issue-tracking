@@ -10,6 +10,7 @@ Se ha reescrito el código del [capítulo03](https://github.com/PacktPublishing/
 
 Entre estos cambios destacan los siguientes:
 
-* Aplicación standalone
-* Uso de signals para la comunicación entre el componente y la vista
-* Uso del control flow
+* [Aplicación standalone](https://github.com/ricardo-roguez/angular-17-issue-tracking/blob/master/src/main.ts)
+* [Uso de signals para la comunicación entre el componente y la vista](https://github.com/ricardo-roguez/angular-17-issue-tracking/blob/116ddfd16b17db01c584b8d06337ff7c5ca3e419/src/app/issues/issue-list/issue-list.component.ts#L24)
+* [Uso de signal inputs](https://github.com/ricardo-roguez/angular-17-issue-tracking/blob/116ddfd16b17db01c584b8d06337ff7c5ca3e419/src/app/issues/issue-edit/issue-edit.component.ts#L19)
+* [Uso del control flow](https://github.com/ricardo-roguez/angular-17-issue-tracking/blob/116ddfd16b17db01c584b8d06337ff7c5ca3e419/src/app/issues/issue-list/issue-list.component.html#L1)
